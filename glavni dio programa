@@ -1,0 +1,355 @@
+sp-zadatak-3-jaksa-paunovic
+===========================
+
+Zadtatk  3 iz kolegija sp sa fakulteta informatike i orfanizacije
+#include <iostream>
+#include <ctime>
+#include "red_pokazivac.h"
+using namespace std;
+
+unsigned short N,preostalo,prebaci_c=0,hello=0;
+int pom,pom2,pom3;
+
+void Generiraj(){
+     unsigned short bez=N;
+     srand(time(0));
+     klijent x;
+     while(bez!=0){
+     bez--;
+     x.ai=101+(rand()%400);
+     x.bi=101+(rand()%400);
+     x.ci=1+(rand()%6);
+     if(x.ci==6)do{x.di=1+(rand()%4);
+                   }while(x.di==2 || x.di==4);
+     else x.di=1+(rand()%4);
+     EnQueueQ(x,red);
+                 }
+     }
+
+void Upis_klijenata(){
+     klijent x;
+     char jos;
+     if(preostalo<1)return;
+     do{
+     x=FrontQ(red);
+     DeQueueQ(red);
+     cout<<"Unesite ime klijenta: "<<endl;
+     cin.ignore();
+     cin.getline(x.ime,20);
+     cout<<"Unesite prezime klijenta: "<<endl;
+     cin.getline(x.prezime,20);
+     cout<<"Unesite datum rodenja klijenta: (DD/MM/GGGG)"<<endl;
+     do{
+     cout<<"Dan: ";
+     cin>>x.dan;
+     }while(x.dan<=0 || x.dan>31);
+     do{
+     cout<<"Mjesec: ";
+     cin>>x.mjesec;
+     }while(x.mjesec<=0 || x.mjesec>12);
+     do{
+     cout<<"Godina: ";
+     cin>>x.godina;
+     }while(x.godina<=1900 || x.godina>2011);
+     cout<<"Unesite stanje tekuceg racuna klijenta (HR - kune): "<<endl;
+     cin>>x.tekuci;
+     cout<<"Unesite stanje deviznog racuna klijenta ( JPY - Japanski jen): "<<endl;
+     cin>>x.devizni;
+     cout<<"Zelite li jos dodavati zapise o klijentima? (d/n ):"<<endl;
+     cin>>jos;  
+     EnQueueQ(x,red);
+     preostalo--;      
+     }while(jos=='d' && preostalo>0);
+     }
+
+void Sort_b(){
+     klijent *polje=new klijent[N];
+     for(int i=0;i<N;i++){
+             if(!IsEmptyQ(red)){
+             polje[i]=FrontQ(red);
+             DeQueueQ(red);
+             }}
+     bool zamjena=true;
+     for(int i=N-1;i>0&&zamjena; i--){
+             zamjena=false;
+             for(int j=0;j<i;j++){
+                     if(polje[j].ci>polje[j+1].ci){
+                     klijent pom=polje[j];
+                     polje[j]=polje[j+1];
+                     polje[j+1]=pom;
+                     zamjena=true;
+                     }
+                     if(polje[j].ci==polje[j+1].ci){
+                     if(polje[j].ai>polje[j+1].ai){
+                     klijent pom=polje[j];
+                     polje[j]=polje[j+1];
+                     polje[j+1]=pom;
+                     zamjena=true;
+                     }
+                     }
+                     }      
+     }
+     for(int i=0;i<N;i++)
+            EnQueueQ(polje[i],red);     
+      delete polje;   
+     }
+
+
+void ispis_b(){
+     klijent tekuci;
+     unsigned short pom_b=N;
+while(pom_b!=0){
+pom_b--;              
+tekuci=FrontQ(red);
+DeQueueQ(red);
+if(tekuci.devizni>146382.45){
+cout << "ai: " <<tekuci.ai << endl;
+cout << "bi: " <<tekuci.bi << endl;
+if(tekuci.ci==1)
+cout << "umirovljenik" << endl;
+else if(tekuci.ci==2)
+cout << "invalid" << endl;
+else if(tekuci.ci==3)
+cout << "trudnica" << endl;
+else if(tekuci.ci==4)
+cout << "VIP klijent banke" << endl;
+else if(tekuci.ci==5)
+cout << "ostali klijent banke" << endl;
+else if(tekuci.ci==6)
+cout << "nije klijent banke" << endl;
+if(tekuci.di==1)
+cout << "uplata" << endl;
+else if(tekuci.di==2)
+cout << "isplata" << endl;
+else if(tekuci.di==3)
+cout << "plaćanje računa" << endl;
+else if(tekuci.di==4)
+cout << "krediti" << endl;
+cout << "ime: " <<tekuci.ime << endl;
+cout << "prezime: " <<tekuci.prezime << endl;
+cout<<"dan: "<<tekuci.dan<<endl;
+cout<<"mjesec: "<<tekuci.mjesec<<endl;
+cout << "godina: " <<tekuci.godina << endl;
+cout << "tekuci: " << tekuci.tekuci << endl;
+cout << "devizno: " <<tekuci.devizni << endl;
+     }
+     EnQueueQ(tekuci,red);
+     }
+     }
+
+void ispis(unsigned short H){
+     klijent tekuci;
+     unsigned short pom_gl=H;
+while(pom_gl!=0){
+pom_gl--;
+tekuci=FrontQ(red);
+DeQueueQ(red);
+cout << "ai: " <<tekuci.ai << endl;
+cout << "bi: " <<tekuci.bi << endl;
+if(tekuci.ci==1)
+cout << "umirovljenik" << endl;
+else if(tekuci.ci==2)
+cout << "invalid" << endl;
+else if(tekuci.ci==3)
+cout << "trudnica" << endl;
+else if(tekuci.ci==4)
+cout << "VIP klijent banke" << endl;
+else if(tekuci.ci==5)
+cout << "ostali klijent banke" << endl;
+else if(tekuci.ci==6)
+cout << "nije klijent banke" << endl;
+if(tekuci.di==1)
+cout << "uplata" << endl;
+else if(tekuci.di==2)
+cout << "isplata" << endl;
+else if(tekuci.di==3)
+cout << "plaćanje računa" << endl;
+else if(tekuci.di==4)
+cout << "krediti" << endl;
+cout << "ime: " <<tekuci.ime << endl;
+cout << "prezime: " <<tekuci.prezime << endl;
+cout<<"dan: "<<tekuci.dan<<endl;
+cout<<"mjesec: "<<tekuci.mjesec<<endl;
+cout << "godina: " <<tekuci.godina << endl;
+cout << "tekuci: " << tekuci.tekuci << endl;
+cout << "devizno: " <<tekuci.devizni << endl;
+cout<<"---------------"<<endl;
+EnQueueQ(tekuci,red);
+}
+     }
+     
+void ispis_e(unsigned short H){
+     klijent tekuci;
+     unsigned short pom_gl=H;
+     cout<<endl<<"NOVI 30% salter!"<<endl;
+while(pom_gl!=0){
+pom_gl--;
+tekuci=FrontQ(red_e);
+DeQueueQ(red_e);
+cout << "ai: " <<tekuci.ai << endl;
+cout << "bi: " <<tekuci.bi << endl;
+if(tekuci.ci==1)
+cout << "umirovljenik" << endl;
+else if(tekuci.ci==2)
+cout << "invalid" << endl;
+else if(tekuci.ci==3)
+cout << "trudnica" << endl;
+else if(tekuci.ci==4)
+cout << "VIP klijent banke" << endl;
+else if(tekuci.ci==5)
+cout << "ostali klijent banke" << endl;
+else if(tekuci.ci==6)
+cout << "nije klijent banke" << endl;
+if(tekuci.di==1)
+cout << "uplata" << endl;
+else if(tekuci.di==2)
+cout << "isplata" << endl;
+else if(tekuci.di==3)
+cout << "plaćanje računa" << endl;
+else if(tekuci.di==4)
+cout << "krediti" << endl;
+cout << "ime: " <<tekuci.ime << endl;
+cout << "prezime: " <<tekuci.prezime << endl;
+cout<<"dan: "<<tekuci.dan<<endl;
+cout<<"mjesec: "<<tekuci.mjesec<<endl;
+cout << "godina: " <<tekuci.godina << endl;
+cout << "tekuci: " << tekuci.tekuci << endl;
+cout << "devizno: " <<tekuci.devizni << endl;
+cout<<"---------------"<<endl;
+EnQueueQ(tekuci,red_e);
+}
+     }     
+
+void ispis_c_brzi(unsigned short H){
+     klijent tekuci;
+     unsigned short pom_c=H;
+while(pom_c!=0){
+pom_c--;
+tekuci=FrontQ(red_c);
+DeQueueQ(red_c);
+cout << "ai: " <<tekuci.ai << endl;
+cout << "bi: " <<tekuci.bi << endl;
+if(tekuci.ci==1)
+cout << "umirovljenik" << endl;
+else if(tekuci.ci==2)
+cout << "invalid" << endl;
+else if(tekuci.ci==3)
+cout << "trudnica" << endl;
+else if(tekuci.ci==4)
+cout << "VIP klijent banke" << endl;
+else if(tekuci.ci==5)
+cout << "ostali klijent banke" << endl;
+else if(tekuci.ci==6)
+cout << "nije klijent banke" << endl;
+if(tekuci.di==1)
+cout << "uplata" << endl;
+else if(tekuci.di==2)
+cout << "isplata" << endl;
+else if(tekuci.di==3)
+cout << "placanje računa" << endl;
+else if(tekuci.di==4)
+cout << "krediti" << endl;
+cout << "ime: " <<tekuci.ime << endl;
+cout << "prezime: " <<tekuci.prezime << endl;
+cout<<"dan: "<<tekuci.dan<<endl;
+cout<<"mjesec: "<<tekuci.mjesec<<endl;
+cout << "godina: " <<tekuci.godina << endl;
+cout << "tekuci: " << tekuci.tekuci << endl;
+cout << "devizno: " <<tekuci.devizni << endl;
+cout<<"--------------- "<<endl;
+EnQueueQ(tekuci,red_c);
+}
+     }
+
+void zad_c(){
+     klijent tekuci;
+     unsigned short pom_cc=N;
+while(pom_cc!=0){
+pom_cc--;              
+tekuci=FrontQ(red);
+DeQueueQ(red);
+if(tekuci.di==3){
+EnQueueQ(tekuci,red_c);
+prebaci_c++;}
+else EnQueueQ(tekuci,red);
+     }
+cout<<endl<<"------- Prikaz stanja glavnog reda! ------- "<<endl<<endl;
+N=N-prebaci_c;
+ispis(N);
+cout<<endl<<"------- Prikaz stanja brzog reda! ------- "<<endl<<endl;
+ispis_c_brzi(prebaci_c);    
+     }
+
+void zad_d(){
+     klijent tekuci;
+     unsigned short pom_d=N;
+     while(pom_d!=0){
+                   pom_d--;
+                   tekuci=FrontQ(red);
+                   DeQueueQ(red);
+                   if((tekuci.ci==4 && tekuci.godina<1972 && tekuci.di==1 && tekuci.tekuci<100)||(tekuci.ci==1 && tekuci.di==2 && (tekuci.tekuci+(tekuci.devizni*(0.07)))>5000))prebaci_c++;
+                   else EnQueueQ(tekuci,red);
+                   }
+     cout<<endl<<"*=*=*= Prikaz stanja glavnog reda! =*=*=*"<<endl<<endl;
+     Sort_b();
+     N=N-prebaci_c;
+ispis(N);
+     }
+
+void zad_e(){
+          
+     if(IsEmptyQ(red))return;
+     klijent tekuci=FrontQ(red);
+     DeQueueQ(red);
+     zad_e();
+      hello++;
+    
+     if((hello-1)<N){
+     if(pom3>0){
+               pom3--;
+               EnQueueQ(tekuci,red_e);
+               }
+     else EnQueueQ(tekuci,red);
+     }
+     else if(hello>N)EnQueueQ(tekuci,red);
+     if(hello==N)
+                  zad_e();
+     }
+
+
+int main(){
+unsigned short izbor;
+InitQ(red);
+InitQ(red_c);
+InitQ(red_e);
+cout<<endl<<"Koliko imate klijenata u redu? "<<endl;
+cin>>N;
+pom=N*0.3;
+pom2=pom;
+pom3=pom;
+Generiraj();
+Sort_b();
+do{
+cout<<endl<<"========================="<<endl;
+cout<<"        IZBORNIK"<<endl<<"=========================";
+preostalo=N;
+cout<<endl<<"1) Dodati zapise od klijentima banke u redu. Preostalo dodavanja ("<<preostalo<<")."<<endl;
+cout<<endl<<"2) Ispis podataka o klijentima koji imaju vise od 10 000 HR - KN na deviznom racunu."<<endl;
+cout<<endl<<"3) Simulacija brzog reda ( koji zele obaviti transakciju placanja racuna) popracen prioritetom klijenata!"<<endl;
+cout<<endl<<"4) Brisanje VIP klijenata iz glavnog reda, prikaz stanja glavnog reda!"<<endl;
+cout<<endl<<"5) Simulacija otvaranja novog saltera, prikaz stanja na novom salteru i prethodnom!"<<endl;
+cout<<"9) Izlaz iz programa!"<<endl;
+cin>>izbor;
+switch (izbor){
+       case 1:Upis_klijenata();ispis_b();break;
+       case 2:ispis_b();break;
+       case 3:zad_c();prebaci_c=0;break;
+       case 4:zad_d();prebaci_c=0;break;
+       case 5:zad_e();N=N-pom;pom=N*0.3;hello=0;pom3=pom;cout<<endl<<"*=*=*= Prikaz stanja glavnog reda! =*=*=*"<<endl<<endl;ispis(N-prebaci_c);ispis_e(pom2);pom2=pom2+pom;break;
+       case 9:cout<<endl<<"Izlazam iz programa!"<<endl;break; 
+       default: cout<<"Krivi unos!"<<endl;break;
+       }
+       }while(izbor!=9);
+system("pause");
+return 0;
+}
